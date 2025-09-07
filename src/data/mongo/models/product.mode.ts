@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const productSchema = new mongoose.Schema({
+const productSchema = new Schema({
 
     name: {
         type: String,
@@ -22,12 +22,23 @@ const productSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    Category: {
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required: true
     }
-
+    
 });
+
+productSchema.set('toJSON',{
+    virtuals:true,
+    versionKey:false,
+    transform(doc, ret, options) {
+        delete ret.__v;
+        delete ret._id;
+    },
+});
+
+
 
 export const ProductModel = mongoose.model('Product', productSchema);

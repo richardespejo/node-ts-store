@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 
-
 interface ConnectionOptions {
-
     mongoUrl: string;
     dbName: string;
-
 }
 
 
@@ -26,5 +23,9 @@ export class MongoDatabase {
             throw error;
             
         }
+    }
+
+    static async disconnect(){
+        await mongoose.disconnect();
     }
 }
